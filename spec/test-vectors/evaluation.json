@@ -1,0 +1,4294 @@
+{
+  "description": "Shared evaluation conformance cases. See spec/evaluation.md.",
+  "cases": [
+    {
+      "name": "off serves off_variation",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": false,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "OFF"
+        }
+      }
+    },
+    {
+      "name": "off with null off_variation serves null",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": false,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": null,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "OFF"
+        }
+      }
+    },
+    {
+      "name": "missing on field is off",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "OFF"
+        }
+      }
+    },
+    {
+      "name": "on with fixed fallthrough",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 0
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "user without id",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "country": "CA"
+      },
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "USER_NOT_SPECIFIED"
+        }
+      }
+    },
+    {
+      "name": "user with empty id",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": ""
+      },
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "USER_NOT_SPECIFIED"
+        }
+      }
+    },
+    {
+      "name": "user with numeric id",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": 5
+      },
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "USER_NOT_SPECIFIED"
+        }
+      }
+    },
+    {
+      "name": "user is not an object",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": "user-1",
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "USER_NOT_SPECIFIED"
+        }
+      }
+    },
+    {
+      "name": "user is null",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": null,
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "USER_NOT_SPECIFIED"
+        }
+      }
+    },
+    {
+      "name": "invalid user beats off",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": false,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {},
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "USER_NOT_SPECIFIED"
+        }
+      }
+    },
+    {
+      "name": "individual target",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [
+          {
+            "variation": 0,
+            "values": [
+              "user-1"
+            ]
+          }
+        ],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-1"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "TARGET_MATCH"
+        }
+      }
+    },
+    {
+      "name": "target beats rule",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [
+          {
+            "variation": 1,
+            "values": [
+              "user-1"
+            ]
+          }
+        ],
+        "rules": [
+          {
+            "id": "canada",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-1",
+        "country": "CA"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "TARGET_MATCH"
+        }
+      }
+    },
+    {
+      "name": "first target wins",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [
+          {
+            "variation": 1,
+            "values": [
+              "user-1"
+            ]
+          },
+          {
+            "variation": 0,
+            "values": [
+              "user-1"
+            ]
+          }
+        ],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-1"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "TARGET_MATCH"
+        }
+      }
+    },
+    {
+      "name": "off beats target",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": false,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [
+          {
+            "variation": 0,
+            "values": [
+              "user-1"
+            ]
+          }
+        ],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-1"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "OFF"
+        }
+      }
+    },
+    {
+      "name": "rule matches",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "canada",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "CA"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "canada"
+        }
+      }
+    },
+    {
+      "name": "rule does not match",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "canada",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "US"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "first matching rule wins",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "a",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 1
+            }
+          },
+          {
+            "id": "b",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "CA"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "a"
+        }
+      }
+    },
+    {
+      "name": "second rule matches",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "a",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "US"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          },
+          {
+            "id": "b",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "CA"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 1,
+          "rule_id": "b"
+        }
+      }
+    },
+    {
+      "name": "rule with zero clauses never matches",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "empty",
+            "clauses": [],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "all clauses must match",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": false
+              },
+              {
+                "attribute": "plan",
+                "op": "in",
+                "values": [
+                  "pro"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "CA",
+        "plan": "free"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "all clauses match",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": false
+              },
+              {
+                "attribute": "plan",
+                "op": "in",
+                "values": [
+                  "pro"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "CA",
+        "plan": "pro"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "clause values are ORed",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "US",
+                  "CA",
+                  "MX"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "MX"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "clause can reference id",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "id",
+                "op": "ends_with",
+                "values": [
+                  "@acme.com"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "jo@acme.com"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "missing attribute does not match",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "missing attribute does not match even when negated",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": true
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "null attribute does not match even when negated",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": true
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": null
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "negated clause matches other value",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": true
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "US"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "negated clause rejects listed value",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": true
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "CA"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "array attribute matches any element",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "groups",
+                "op": "in",
+                "values": [
+                  "staff"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "groups": [
+          "beta",
+          "staff"
+        ]
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "array attribute with no matching element",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "groups",
+                "op": "in",
+                "values": [
+                  "staff"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "groups": [
+          "beta"
+        ]
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "array attribute ignores null elements",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "groups",
+                "op": "in",
+                "values": [
+                  "beta"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "groups": [
+          null,
+          "beta"
+        ]
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "empty array attribute negated matches",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "groups",
+                "op": "in",
+                "values": [
+                  "staff"
+                ],
+                "negate": true
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "groups": []
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "in is case sensitive",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "ca"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "in does not coerce number to string",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "level",
+                "op": "in",
+                "values": [
+                  "1"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "level": 1
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "in does not coerce string to number",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "level",
+                "op": "in",
+                "values": [
+                  1
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "level": "1"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "in treats booleans as distinct from numbers",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "beta",
+                "op": "in",
+                "values": [
+                  1
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "beta": true
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "in matches booleans",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "beta",
+                "op": "in",
+                "values": [
+                  true
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "beta": true
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "in compares numbers numerically",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "level",
+                "op": "in",
+                "values": [
+                  3
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "level": 3.0
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "in never matches objects",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "meta",
+                "op": "in",
+                "values": [
+                  "x"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "meta": {
+          "a": "x"
+        }
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "starts_with",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "email",
+                "op": "starts_with",
+                "values": [
+                  "admin@"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "email": "admin@acme.com"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "starts_with requires strings",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "code",
+                "op": "starts_with",
+                "values": [
+                  "1"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "code": 123
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "ends_with",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "email",
+                "op": "ends_with",
+                "values": [
+                  "@acme.com"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "email": "jo@acme.com"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "ends_with mismatch",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "email",
+                "op": "ends_with",
+                "values": [
+                  "@acme.com"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "email": "jo@acme.co"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "contains",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "email",
+                "op": "contains",
+                "values": [
+                  "acme"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "email": "jo@acme.com"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "contains is case sensitive",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "email",
+                "op": "contains",
+                "values": [
+                  "ACME"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "email": "jo@acme.com"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "gte number",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "age",
+                "op": "gte",
+                "values": [
+                  18
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "age": 18
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "gt number",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "age",
+                "op": "gt",
+                "values": [
+                  18
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "age": 18
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "lt float",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "score",
+                "op": "lt",
+                "values": [
+                  0.5
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "score": 0.25
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "lte number",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "age",
+                "op": "lte",
+                "values": [
+                  18
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "age": 19
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "numeric op rejects numeric string",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "age",
+                "op": "gt",
+                "values": [
+                  18
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "age": "30"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "numeric op rejects boolean",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "age",
+                "op": "gt",
+                "values": [
+                  0
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "age": true
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "semver_gt",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "app_version",
+                "op": "semver_gt",
+                "values": [
+                  "2.4.0"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "app_version": "2.4.1"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "semver_gt equal is false",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "app_version",
+                "op": "semver_gt",
+                "values": [
+                  "2.4.0"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "app_version": "2.4.0"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "semver_lt numeric not lexical",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "app_version",
+                "op": "semver_lt",
+                "values": [
+                  "2.10.0"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "app_version": "2.9.0"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "semver prerelease below release",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "app_version",
+                "op": "semver_lt",
+                "values": [
+                  "2.4.0"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "app_version": "2.4.0-beta.1"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "semver missing parts are zero",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "app_version",
+                "op": "semver_eq",
+                "values": [
+                  "2.4.0"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "app_version": "2.4"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "semver build metadata ignored",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "app_version",
+                "op": "semver_eq",
+                "values": [
+                  "1.0.0"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "app_version": "1.0.0+build.5"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "semver shorter prerelease set is lower",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "app_version",
+                "op": "semver_lt",
+                "values": [
+                  "1.0.0-alpha.1"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "app_version": "1.0.0-alpha"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "semver numeric identifier below alphanumeric",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "app_version",
+                "op": "semver_lt",
+                "values": [
+                  "1.0.0-alpha.beta"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "app_version": "1.0.0-alpha.1"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "semver numeric identifiers compare numerically",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "app_version",
+                "op": "semver_lt",
+                "values": [
+                  "1.0.0-beta.11"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "app_version": "1.0.0-beta.2"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "r"
+        }
+      }
+    },
+    {
+      "name": "semver leading v does not parse",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "app_version",
+                "op": "semver_eq",
+                "values": [
+                  "2.4.0"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "app_version": "v2.4.0"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "semver garbage does not parse",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "app_version",
+                "op": "semver_gt",
+                "values": [
+                  "1.0.0"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "app_version": "latest"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "semver requires string",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "app_version",
+                "op": "semver_eq",
+                "values": [
+                  "2.0.0"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "app_version": 2
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "unknown operator never matches",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "regex_match",
+                "values": [
+                  "C."
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "CA"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "unknown operator negated still never matches",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "regex_match",
+                "values": [
+                  "C."
+                ],
+                "negate": true
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "CA"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "malformed fallthrough index",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 5
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "MALFORMED_FLAG"
+        }
+      }
+    },
+    {
+      "name": "malformed off_variation",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": false,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 9,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "MALFORMED_FLAG"
+        }
+      }
+    },
+    {
+      "name": "malformed boolean index",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": true
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "MALFORMED_FLAG"
+        }
+      }
+    },
+    {
+      "name": "malformed missing fallthrough",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "MALFORMED_FLAG"
+        }
+      }
+    },
+    {
+      "name": "malformed empty rollout",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "variations": []
+          }
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "MALFORMED_FLAG"
+        }
+      }
+    },
+    {
+      "name": "malformed target index",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [
+          {
+            "variation": 7,
+            "values": [
+              "u"
+            ]
+          }
+        ],
+        "rules": [],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "MALFORMED_FLAG"
+        }
+      }
+    },
+    {
+      "name": "malformed rule serve",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": -1
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "country": "CA"
+      },
+      "expected": {
+        "value": null,
+        "variation_index": null,
+        "reason": {
+          "kind": "ERROR",
+          "error_kind": "MALFORMED_FLAG"
+        }
+      }
+    },
+    {
+      "name": "rollout 10%: user-1 (bucket 65341) gets false",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 10000
+              },
+              {
+                "variation": 1,
+                "weight": 90000
+              }
+            ]
+          }
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-1"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "rollout 10%: user-2 (bucket 519) gets true",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 10000
+              },
+              {
+                "variation": 1,
+                "weight": 90000
+              }
+            ]
+          }
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-2"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "rollout 10%: user-4 (bucket 8129) gets true",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 10000
+              },
+              {
+                "variation": 1,
+                "weight": 90000
+              }
+            ]
+          }
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-4"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "rollout 10%: user-5 (bucket 19804) gets false",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 10000
+              },
+              {
+                "variation": 1,
+                "weight": 90000
+              }
+            ]
+          }
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-5"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "rollout 20%: user-5 (bucket 19804) now gets true",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 20000
+              },
+              {
+                "variation": 1,
+                "weight": 80000
+              }
+            ]
+          }
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-5"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "rollout 20%: user-2 stays true",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 20000
+              },
+              {
+                "variation": 1,
+                "weight": 80000
+              }
+            ]
+          }
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-2"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "salt changes bucket: user-1 with salt other-flag (43570)",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 50000
+              },
+              {
+                "variation": 1,
+                "weight": 50000
+              }
+            ]
+          }
+        },
+        "salt": "other-flag",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-1"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "salt defaults to key: user-1 (65341)",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 50000
+              },
+              {
+                "variation": 1,
+                "weight": 50000
+              }
+            ]
+          }
+        },
+        "salt": "",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-1"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "weights below 100000 fall to last variation",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "variations": [
+              {
+                "variation": 1,
+                "weight": 10000
+              },
+              {
+                "variation": 0,
+                "weight": 10000
+              }
+            ]
+          }
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-1"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "bucket_by attribute (acme-corp 47498)",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "bucket_by": "company",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 50000
+              },
+              {
+                "variation": 1,
+                "weight": 50000
+              }
+            ]
+          }
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-1",
+        "company": "acme-corp"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "bucket_by missing attribute uses bucket 0",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "bucket_by": "company",
+            "variations": [
+              {
+                "variation": 1,
+                "weight": 1
+              },
+              {
+                "variation": 0,
+                "weight": 99999
+              }
+            ]
+          }
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-1"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "rule serving a rollout",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "ca",
+            "clauses": [
+              {
+                "attribute": "country",
+                "op": "in",
+                "values": [
+                  "CA"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "rollout": {
+                "kind": "rollout",
+                "variations": [
+                  {
+                    "variation": 0,
+                    "weight": 10000
+                  },
+                  {
+                    "variation": 1,
+                    "weight": 90000
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-2",
+        "country": "CA"
+      },
+      "expected": {
+        "value": true,
+        "variation_index": 0,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "ca"
+        }
+      }
+    },
+    {
+      "name": "experiment fallthrough: b (7089) control",
+      "flag": {
+        "key": "checkout-test",
+        "version": 3,
+        "kind": "string",
+        "on": true,
+        "variations": [
+          "control",
+          "one-page",
+          "two-page"
+        ],
+        "off_variation": 0,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "experiment",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 33334
+              },
+              {
+                "variation": 1,
+                "weight": 33333
+              },
+              {
+                "variation": 2,
+                "weight": 33333
+              }
+            ]
+          }
+        },
+        "salt": "exp",
+        "client_side": true
+      },
+      "user": {
+        "id": "b"
+      },
+      "expected": {
+        "value": "control",
+        "variation_index": 0,
+        "reason": {
+          "kind": "FALLTHROUGH",
+          "in_experiment": true
+        }
+      }
+    },
+    {
+      "name": "experiment fallthrough: d (50338) one-page",
+      "flag": {
+        "key": "checkout-test",
+        "version": 3,
+        "kind": "string",
+        "on": true,
+        "variations": [
+          "control",
+          "one-page",
+          "two-page"
+        ],
+        "off_variation": 0,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "experiment",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 33334
+              },
+              {
+                "variation": 1,
+                "weight": 33333
+              },
+              {
+                "variation": 2,
+                "weight": 33333
+              }
+            ]
+          }
+        },
+        "salt": "exp",
+        "client_side": true
+      },
+      "user": {
+        "id": "d"
+      },
+      "expected": {
+        "value": "one-page",
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH",
+          "in_experiment": true
+        }
+      }
+    },
+    {
+      "name": "experiment fallthrough: a (96885) two-page",
+      "flag": {
+        "key": "checkout-test",
+        "version": 3,
+        "kind": "string",
+        "on": true,
+        "variations": [
+          "control",
+          "one-page",
+          "two-page"
+        ],
+        "off_variation": 0,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "experiment",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 33334
+              },
+              {
+                "variation": 1,
+                "weight": 33333
+              },
+              {
+                "variation": 2,
+                "weight": 33333
+              }
+            ]
+          }
+        },
+        "salt": "exp",
+        "client_side": true
+      },
+      "user": {
+        "id": "a"
+      },
+      "expected": {
+        "value": "two-page",
+        "variation_index": 2,
+        "reason": {
+          "kind": "FALLTHROUGH",
+          "in_experiment": true
+        }
+      }
+    },
+    {
+      "name": "experiment off is not in experiment",
+      "flag": {
+        "key": "checkout-test",
+        "version": 3,
+        "kind": "string",
+        "on": false,
+        "variations": [
+          "control",
+          "one-page",
+          "two-page"
+        ],
+        "off_variation": 0,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "experiment",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 33334
+              },
+              {
+                "variation": 1,
+                "weight": 33333
+              },
+              {
+                "variation": 2,
+                "weight": 33333
+              }
+            ]
+          }
+        },
+        "salt": "exp",
+        "client_side": true
+      },
+      "user": {
+        "id": "a"
+      },
+      "expected": {
+        "value": "control",
+        "variation_index": 0,
+        "reason": {
+          "kind": "OFF"
+        }
+      }
+    },
+    {
+      "name": "experiment in rule",
+      "flag": {
+        "key": "checkout-test",
+        "version": 3,
+        "kind": "string",
+        "on": true,
+        "variations": [
+          "control",
+          "one-page",
+          "two-page"
+        ],
+        "off_variation": 0,
+        "targets": [],
+        "rules": [
+          {
+            "id": "beta",
+            "clauses": [
+              {
+                "attribute": "groups",
+                "op": "in",
+                "values": [
+                  "beta"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "rollout": {
+                "kind": "experiment",
+                "variations": [
+                  {
+                    "variation": 0,
+                    "weight": 33334
+                  },
+                  {
+                    "variation": 1,
+                    "weight": 33333
+                  },
+                  {
+                    "variation": 2,
+                    "weight": 33333
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 0
+        },
+        "salt": "exp",
+        "client_side": true
+      },
+      "user": {
+        "id": "c",
+        "groups": [
+          "beta"
+        ]
+      },
+      "expected": {
+        "value": "two-page",
+        "variation_index": 2,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "beta",
+          "in_experiment": true
+        }
+      }
+    },
+    {
+      "name": "experiment targeted user is not in experiment",
+      "flag": {
+        "key": "checkout-test",
+        "version": 3,
+        "kind": "string",
+        "on": true,
+        "variations": [
+          "control",
+          "one-page",
+          "two-page"
+        ],
+        "off_variation": 0,
+        "targets": [
+          {
+            "variation": 1,
+            "values": [
+              "a"
+            ]
+          }
+        ],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "experiment",
+            "variations": [
+              {
+                "variation": 0,
+                "weight": 33334
+              },
+              {
+                "variation": 1,
+                "weight": 33333
+              },
+              {
+                "variation": 2,
+                "weight": 33333
+              }
+            ]
+          }
+        },
+        "salt": "exp",
+        "client_side": true
+      },
+      "user": {
+        "id": "a"
+      },
+      "expected": {
+        "value": "one-page",
+        "variation_index": 1,
+        "reason": {
+          "kind": "TARGET_MATCH"
+        }
+      }
+    },
+    {
+      "name": "json variations",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "json",
+        "on": true,
+        "variations": [
+          {
+            "color": "red",
+            "size": [
+              1,
+              2
+            ]
+          },
+          {
+            "color": "blue"
+          }
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "variation": 0
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": {
+          "color": "red",
+          "size": [
+            1,
+            2
+          ]
+        },
+        "variation_index": 0,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "number variations",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "number",
+        "on": true,
+        "variations": [
+          10,
+          25.5,
+          0
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "pro",
+            "clauses": [
+              {
+                "attribute": "plan",
+                "op": "in",
+                "values": [
+                  "pro"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 1
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 2
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u",
+        "plan": "pro"
+      },
+      "expected": {
+        "value": 25.5,
+        "variation_index": 1,
+        "reason": {
+          "kind": "RULE_MATCH",
+          "rule_index": 0,
+          "rule_id": "pro"
+        }
+      }
+    }
+  ]
+}

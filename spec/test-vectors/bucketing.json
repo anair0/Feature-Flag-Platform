@@ -1,0 +1,82 @@
+{
+  "description": "bucket(salt, value) conformance cases. See spec/evaluation.md#percentage-rollouts-bucketing.",
+  "cases": [
+    {
+      "salt": "new-checkout",
+      "value": "user-1",
+      "bucket": 65341
+    },
+    {
+      "salt": "new-checkout",
+      "value": "user-2",
+      "bucket": 519
+    },
+    {
+      "salt": "other-flag",
+      "value": "user-1",
+      "bucket": 43570
+    },
+    {
+      "salt": "s",
+      "value": "42",
+      "bucket": 73565
+    },
+    {
+      "salt": "s",
+      "value": 42,
+      "bucket": 73565
+    },
+    {
+      "salt": "s",
+      "value": 42.0,
+      "bucket": 73565
+    },
+    {
+      "salt": "s",
+      "value": -7,
+      "bucket": 38140
+    },
+    {
+      "salt": "s",
+      "value": 42.5,
+      "bucket": 0
+    },
+    {
+      "salt": "s",
+      "value": 9007199254740992,
+      "bucket": 0
+    },
+    {
+      "salt": "s",
+      "value": true,
+      "bucket": 0
+    },
+    {
+      "salt": "s",
+      "value": null,
+      "bucket": 0
+    },
+    {
+      "salt": "s",
+      "value": [
+        "a"
+      ],
+      "bucket": 0
+    },
+    {
+      "salt": "s",
+      "value": "",
+      "bucket": 71360
+    },
+    {
+      "salt": "s",
+      "value": "héllo",
+      "bucket": 275
+    },
+    {
+      "salt": "s",
+      "value": "user-🚀",
+      "bucket": 92032
+    }
+  ]
+}
