@@ -4,37 +4,57 @@ on:
   pull_request:
 
 jobs:
-  backend:
+  python-sdk:
     runs-on: ubuntu-latest
-    defaults: { run: { working-directory: backend } }
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
-      - run: pip install -e ".[dev]"
-      - run: ruff check .
-      - run: pytest
-
-  sdk-python:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.9", "3.12"]
     defaults: { run: { working-directory: sdks/python } }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
+        with: { python-version: "${{ matrix.python }}" }
       - run: pip install -e ".[dev]"
-      - run: pytest
+      - run: ruff check . && ruff format --check .
+      - run: pytest -q   # includes the shared spec vectors
 
-  sdk-typescript:
+  typescript-sdk:
     runs-on: ubuntu-latest
-    defaults: { run: { working-directory: sdks/typescript } }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
-      - run: npm install
-      - run: npm run typecheck
-      - run: npm test
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - working-directory: sdks/typescript
+        run: |
+          npm ci
+          npm run typecheck
+          npm test          # includes the shared spec vectors
+          npm run build
+      - name: Cross-SDK differential fuzzing (Python vs TypeScript)
+        run: python scripts/cross_sdk_fuzz.py --cases 20000
+
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_PASSWORD: postgres }
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 2s --health-timeout 5s --health-retries 20
+    env:
+      TEST_ADMIN_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -e sdks/python -e "backend[dev]"
+      - working-directory: backend
+        run: ruff check . && ruff format --check .
+      - working-directory: backend
+        run: pytest -q -s   # -s prints the measured propagation latency
 
   dashboard:
     runs-on: ubuntu-latest
@@ -43,5 +63,21 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
-      - run: npm install
-      - run: npm run typecheck
+      - run: npm ci
+      - run: npm run build   # tsc --noEmit && vite build
+
+  demo-app:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: demo-app } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm ci
+      - run: npx tsc --noEmit
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose build
