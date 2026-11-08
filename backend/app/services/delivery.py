@@ -6,12 +6,15 @@ import json
 import uuid
 from typing import Any
 
-from sqlalchemy import select, text, update
+from sqlalchemy import delete, select, text, update
 from sqlalchemy.orm import Session
 
 from app.models import Environment, Flag, FlagConfig, SdkChange
 
 CHANNEL = "flag_changes"
+# Change-log rows only need to live until every API process's listener has read them
+# (milliseconds); SDKs that reconnect always get a full snapshot. Keep a generous tail.
+CHANGE_LOG_RETAIN = 1000
 
 
 def wire(flag: Flag, cfg: FlagConfig) -> dict[str, Any]:
@@ -60,6 +63,13 @@ def publish(
         {"org_id": str(org_id), "environment_id": str(environment_id), "env_version": env_version}
     )
     db.execute(text("SELECT pg_notify(:c, :p)"), {"c": CHANNEL, "p": payload})
+    if env_version % 100 == 0:  # amortized retention
+        db.execute(
+            delete(SdkChange).where(
+                SdkChange.environment_id == environment_id,
+                SdkChange.env_version <= env_version - CHANGE_LOG_RETAIN,
+            )
+        )
     return env_version
 
 

@@ -134,3 +134,20 @@ def test_event_ingestion(account, client):
         "/sdk/v1/events", headers={"X-Client-Id": client_id}, json={"events": events[:1]}
     )
     assert r.json()["accepted"] == 1
+
+
+def test_change_log_is_trimmed(account, monkeypatch):
+    from app.services import delivery
+
+    from .conftest import owner_conn
+
+    monkeypatch.setattr(delivery, "CHANGE_LOG_RETAIN", 10)
+    account.create_flag()  # 3 envs -> env_version 1 each
+    for i in range(110):
+        account.set_config("new-checkout", "development", {**ON, "on": i % 2 == 0})
+    with owner_conn() as conn:
+        n = conn.execute(
+            "SELECT count(*) FROM sdk_change_log s JOIN environments e "
+            "ON e.id = s.environment_id WHERE e.key = 'development'"
+        ).fetchone()[0]
+    assert n < 30  # trimmed at version 100 down to the last 10, plus 11 since
