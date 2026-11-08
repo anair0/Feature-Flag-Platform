@@ -2987,6 +2987,150 @@
       }
     },
     {
+      "name": "prototype property name is not an attribute",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "constructor",
+                "op": "in",
+                "values": [
+                  "x"
+                ],
+                "negate": false
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "prototype property name is not an attribute when negated",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "constructor",
+                "op": "in",
+                "values": [
+                  "x"
+                ],
+                "negate": true
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "__proto__ is not an attribute when negated",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [
+          {
+            "id": "r",
+            "clauses": [
+              {
+                "attribute": "__proto__",
+                "op": "in",
+                "values": [
+                  "x"
+                ],
+                "negate": true
+              }
+            ],
+            "serve": {
+              "variation": 0
+            }
+          }
+        ],
+        "fallthrough": {
+          "variation": 1
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "u"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
       "name": "unknown operator never matches",
       "flag": {
         "key": "new-checkout",
@@ -3783,6 +3927,50 @@
           "rollout": {
             "kind": "rollout",
             "bucket_by": "company",
+            "variations": [
+              {
+                "variation": 1,
+                "weight": 1
+              },
+              {
+                "variation": 0,
+                "weight": 99999
+              }
+            ]
+          }
+        },
+        "salt": "new-checkout",
+        "client_side": false
+      },
+      "user": {
+        "id": "user-1"
+      },
+      "expected": {
+        "value": false,
+        "variation_index": 1,
+        "reason": {
+          "kind": "FALLTHROUGH"
+        }
+      }
+    },
+    {
+      "name": "bucket_by prototype property uses bucket 0",
+      "flag": {
+        "key": "new-checkout",
+        "version": 1,
+        "kind": "boolean",
+        "on": true,
+        "variations": [
+          true,
+          false
+        ],
+        "off_variation": 1,
+        "targets": [],
+        "rules": [],
+        "fallthrough": {
+          "rollout": {
+            "kind": "rollout",
+            "bucket_by": "toString",
             "variations": [
               {
                 "variation": 1,

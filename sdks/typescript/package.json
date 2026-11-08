@@ -1,16 +1,25 @@
 {
   "name": "@flagplatform/sdk",
   "version": "0.1.0",
+  "description": "Feature flag SDK: local evaluation for Node, remote evaluation for browsers",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./browser": { "types": "./dist/browser.d.ts", "default": "./dist/browser.js" }
+  },
+  "files": ["dist"],
+  "sideEffects": false,
+  "engines": { "node": ">=18" },
   "scripts": {
-    "build": "tsc -p .",
+    "build": "tsc -p tsconfig.build.json",
     "test": "vitest run",
     "typecheck": "tsc -p . --noEmit"
   },
   "devDependencies": {
-    "typescript": "^5.4.0",
+    "@types/node": "^20.14.0",
+    "typescript": "^5.4.5",
     "vitest": "^1.6.0"
   }
 }
